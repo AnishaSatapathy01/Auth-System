@@ -3,6 +3,8 @@ from utils.jwt_handler import create_access_token
 from models.user_model import User
 from utils.hash import hash_password , verify_password
 from fastapi import HTTPException
+from utils.otphandler import generate_otp, save_otp
+from utils.emailservice import send_otp_email
 
 
 def register_user(db: Session, user):
@@ -66,3 +68,21 @@ def login_user(db: Session, user):
         "access_token": token,
         "role": db_user.role
     }
+
+
+
+
+def send_otp(db, email):
+
+    user = db.query(User).filter(User.email == email).first()
+
+    if not user:
+        raise HTTPException(status_code=404, detail="Email not registered")
+
+    otp = generate_otp()
+
+    save_otp(email, otp)
+
+    send_otp_email(email, otp)
+
+    return {"message": "OTP sent successfully"}

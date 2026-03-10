@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
 from app.database import get_db
-from schemas.user_schema import UserCreate, UserLogin
+from schemas.user_schema import UserCreate, UserLogin, EmailSchema
 
 
 
@@ -31,3 +31,7 @@ def login(user: UserLogin, db: Session = Depends(get_db)):
         return {"error": "Invalid username or password"}
 
     return result
+@router.post("/send-otp")
+def send_otp(data: EmailSchema, db: Session = Depends(get_db)):
+
+    return auth_service.send_otp(db, data.email)

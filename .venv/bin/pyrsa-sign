@@ -1,4 +1,4 @@
-#!/home/ellocent-labs/Documents/Login-page/.venv/bin/python3
+#!/home/ellocent-labs/Documents/Auth-System/.venv/bin/python3
 # -*- coding: utf-8 -*-
 import re
 import sys

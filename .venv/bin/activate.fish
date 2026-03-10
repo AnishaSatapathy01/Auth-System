@@ -33,7 +33,7 @@ end
 # Unset irrelevant variables.
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV /home/ellocent-labs/Documents/Login-page/.venv
+set -gx VIRTUAL_ENV /home/ellocent-labs/Documents/Auth-System/.venv
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/"bin $PATH
