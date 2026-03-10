@@ -1,0 +1,68 @@
+from sqlalchemy.orm import Session
+from utils.jwt_handler import create_access_token
+from models.user_model import User
+from utils.hash import hash_password , verify_password
+from fastapi import HTTPException
+
+
+def register_user(db: Session, user):
+
+    hashed_password = hash_password(user.password)
+
+    new_user = User(
+        username=user.username,
+        email=user.email,
+        password=hashed_password,
+        role=user.role
+    )
+        # check if username already exists
+    existing_user = db.query(User).filter(
+        User.username == user.username
+    ).first()
+
+    if existing_user:
+        raise HTTPException(
+            status_code=400,
+            detail="Username already exists"
+        )
+    existing_email = db.query(User).filter(
+        User.email == user.email
+    ).first()
+
+    if existing_email:
+        raise HTTPException(
+            status_code=400,
+            detail="Email already registered"
+        )
+    db.add(new_user)
+
+    db.commit()
+
+    db.refresh(new_user)
+
+
+    return new_user
+
+
+
+def login_user(db: Session, user):
+    db_user = db.query(User).filter(
+    User.email == user.email
+    ).first()
+
+    if not db_user:
+        return None
+
+    if not verify_password(user.password, db_user.password):
+        return None
+
+    token = create_access_token({
+        "username": db_user.username,
+        "role": db_user.role
+    })
+
+
+    return {
+        "access_token": token,
+        "role": db_user.role
+    }
