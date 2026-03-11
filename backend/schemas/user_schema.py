@@ -27,3 +27,4 @@ class ResetPasswordSchema(BaseModel):
 class AssignRoleSchema(BaseModel):
     email:str
     role:str
+

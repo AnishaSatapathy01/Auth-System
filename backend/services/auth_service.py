@@ -16,7 +16,7 @@ def register_user(db: Session, user):
         username=user.username,
         email=user.email,
         password=hashed_password,
-        role="employee"
+        role_id=3
     )
         # check if username already exists
     existing_user = db.query(User).filter(
