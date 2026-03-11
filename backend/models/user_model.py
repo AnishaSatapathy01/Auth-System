@@ -15,3 +15,10 @@ class User(Base):
     password = Column(String(255))
 
     role = Column(String(20))
+
+class Role(Base):
+
+    __tablename__ = "roles"
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String)

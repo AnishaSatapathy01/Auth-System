@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Dashboard</title>
+
+<link rel="stylesheet" href="../css/style.css">
+
+
+</div>
+
+</head>
+
+<body>
+<h1 class="portal-title">Job Portal <span>Role: admin</span></h1>
+<div class ="layout">
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+<h3>Dashboard</h3>
+
+<button id="postJobBtn">Post Job</button>
+<button id="editJobBtn">Edit Job</button>
+<button id="deleteJobBtn">Delete Job</button>
+<button id="applyJobBtn">Apply Job</button>
+
+</div>
+
+
+<!-- MAIN AREA -->
+
+<div class="main">
+
+<!-- ACTION CARDS -->
+
+<div class="cards">
+
+<div class="card">
+<h4>Post Job</h4>
+<p>Create new job listings</p>
+</div>
+
+<div class="card">
+<h4>Manage Jobs</h4>
+<p>Edit or delete jobs</p>
+</div>
+
+<div class="card">
+<h4>Applications</h4>
+<p>View job applicants</p>
+</div>
+
+</div>
+
+
+<!-- JOB LIST -->
+
+<div class="panel">
+
+<h3>Available Jobs</h3>
+
+<div id="jobList"></div>
+
+</div>
+
+
+<!-- ROLE MANAGEMENT -->
+
+<div class="panel" id="roleSection">
+
+<h3>Assign Role</h3>
+
+<input type="email" id="roleEmail" placeholder="User email">
+
+<select id="newRole">
+<option value="employee">Employee</option>
+<option value="manager">Manager</option>
+</select>
+
+<button onclick="assignRole()">Assign Role</button>
+
+</div>
+
+</div>
+
+</div>
+
+<script src="../js/dashboard.js"></script>
+
+</body>
+
+</html>

@@ -55,18 +55,9 @@ data.role
 
 /* redirect */
 
-if(data.role === "admin"){
-
 window.location.href =
-"admin-dashboard.html"
+  "dashboard.html"
 
-}
 
-else{
-
-window.location.href =
-"user-dashboard.html"
-
-}
 
 }

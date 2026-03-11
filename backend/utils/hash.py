@@ -7,6 +7,7 @@ pwd_context = CryptContext(
 
 
 def hash_password(password: str):
+    password= password[:72]
     return pwd_context.hash(password[:100])
 
 def verify_password(plain_password, hashed_password):

@@ -1,20 +1,48 @@
-import mailtrap as mt
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 
-MAILTRAP_TOKEN = "446f21dbe9b05ca9b254b8180f0af433"
+
+SMTP_SERVER = "smtp.gmail.com"
+SMTP_PORT = 587
+
+EMAIL_ADDRESS = "anishasatapathy23@gmail.com"
+EMAIL_PASSWORD = "dgjz jvny fdqp wgax"
 
 
 def send_otp_email(receiver_email, otp):
 
-    mail = mt.Mail(
-        sender=mt.Address(email="hello@demomailtrap.co", name="Mailtrap Test"),
-        to=[mt.Address(email=receiver_email)],
-        subject="Password Reset OTP",
-        text=f"Your OTP is {otp}",
-        category="Integration Test",
-    )
+    subject = "Password Reset OTP"
 
-    client = mt.MailtrapClient(token=MAILTRAP_TOKEN)
+    body = f"""
+Your OTP for password reset is: {otp}
 
-    response = client.send(mail)
+This OTP will expire shortly.
+"""
 
-    print(response)
+    msg = MIMEMultipart()
+    msg["From"] = EMAIL_ADDRESS
+    msg["To"] = receiver_email
+    msg["Subject"] = subject
+
+    msg.attach(MIMEText(body, "plain"))
+
+    try:
+
+        server = smtplib.SMTP(SMTP_SERVER, SMTP_PORT)
+        server.starttls()
+
+        server.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
+
+        server.sendmail(
+            EMAIL_ADDRESS,
+            receiver_email,
+            msg.as_string()
+        )
+
+        server.quit()
+
+        print("OTP email sent successfully")
+
+    except Exception as e:
+        print("SMTP Error:", str(e))
